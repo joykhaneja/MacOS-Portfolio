@@ -248,34 +248,43 @@ function startGlitchTransition() {
 // Window dragging
 document.querySelectorAll('.window-header').forEach(header => {
     header.addEventListener('mousedown', (e) => {
-        // Prevent text selection and dragging images/icons
-        e.preventDefault();
+    e.preventDefault();
+    draggedWindow = header.parentElement;
+    
+    const rect = draggedWindow.getBoundingClientRect();
+    dragOffset.x = e.clientX;
+    dragOffset.y = e.clientY;
+    
+    const matrix = window.getComputedStyle(draggedWindow).transform;
+    if (matrix !== 'none') {
+        const values = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
+        initialPos.x = parseFloat(values[4]);
+        initialPos.y = parseFloat(values[5]);
+    } else {
+        initialPos.x = 0;
+        initialPos.y = 0;
+    }
 
-        draggedWindow = header.parentElement;
-        const rect = draggedWindow.getBoundingClientRect();
-        dragOffset.x = e.clientX - rect.left;
-        dragOffset.y = e.clientY - rect.top;
-
-        document.body.style.userSelect = 'none';
-
-        document.addEventListener('mousemove', dragWindow);
-        document.addEventListener('mouseup', stopDragging);
-    });
+    document.body.style.userSelect = 'none';
+    document.addEventListener('mousemove', dragWindow);
+    document.addEventListener('mouseup', stopDragging);
+});
 });
 
-        function dragWindow(e) {
-            if (draggedWindow) {
-                const x = e.clientX - dragOffset.x;
-                const y = e.clientY - dragOffset.y;
-                
-                // Keep window within viewport
-                const maxX = window.innerWidth - draggedWindow.offsetWidth;
-                const maxY = window.innerHeight - draggedWindow.offsetHeight;
-                
-                draggedWindow.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
-                draggedWindow.style.top = Math.max(24, Math.min(y, maxY)) + 'px';
-            }
-        }
+
+let initialPos = { x: 0, y: 0 };
+
+function dragWindow(e) {
+    if (draggedWindow) {
+        const dx = e.clientX - dragOffset.x;
+        const dy = e.clientY - dragOffset.y;
+
+        const translateX = initialPos.x + dx;
+        const translateY = initialPos.y + dy;
+
+        draggedWindow.style.transform = `translate(${translateX}px, ${translateY}px)`;
+    }
+}
 
 function stopDragging() {
     draggedWindow = null;

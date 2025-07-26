@@ -473,8 +473,8 @@
     z-index: 99999;
     background: #000;
     color: #fff;
-    font-family: 'Fira Mono', 'SF Mono', 'Consolas', monospace;
-    font-size: 15px;
+    font-family: 'Fira Mono', 'SF Mono', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -486,7 +486,7 @@
 #boot-logs {
     margin: 32px 0 0 32px;
     text-align: left;
-    line-height: 1.5;
+    line-height: 1.35;
     white-space: pre-wrap;
     user-select: none;
     width: 90vw;
@@ -494,6 +494,8 @@
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    font-size: 13px;
+    color: #c0c0c0; /* Optional: more realistic dull gray tone */
 }
 
 #boot-logs::-webkit-scrollbar {

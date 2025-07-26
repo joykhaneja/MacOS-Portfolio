@@ -502,8 +502,26 @@
     display: none;
 }
 
-#boot-logs .ok { color: #00ff5f; }
-#boot-logs .error { color: #ff3b30; }
+#boot-logs .ok { color: #00d800; }
+#boot-logs .error { color: #ff2f2f; }
+
+#boot-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.04) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 1000;
+    animation: crtFlicker 0.2s infinite;
+}
+
+
 
         .icon-image {
             background: linear-gradient(135deg, #007AFF, #5856D6);

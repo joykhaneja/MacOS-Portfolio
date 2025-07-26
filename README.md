@@ -29,11 +29,12 @@ A dynamic, interactive portfolio styled like a MacOS desktop.. featuring draggab
 
 ### 📸 Screenshots
 
+#### Fake boot logs with authentic Linux service messages:
 <img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/2deafb50-a9bc-4a43-b42c-7f553634f4cf" />
-*Fake boot logs with authentic Linux service messages*
 
+#### MacOS-style desktop with draggable windows and dark mode:
 <img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/d5505dcb-b522-4c04-a666-bde67c2f28fd" />
-*MacOS-style desktop with draggable windows and dark mode*
+
 
 ---
 

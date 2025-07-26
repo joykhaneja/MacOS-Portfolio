@@ -121,19 +121,39 @@ function colorizeBootLine(line) {
 
 function showNextBootLine() {
     if (bootIndex < bootLines.length) {
+        const line = bootLines[bootIndex];
         const div = document.createElement('div');
-        div.innerHTML = colorizeBootLine(bootLines[bootIndex]);
+        div.innerHTML = colorizeBootLine(line);
         bootLogs.appendChild(div);
         bootIndex++;
-        // Scroll to bottom as logs appear
+
+        // Scroll as logs fill
         bootLogs.scrollTop = bootLogs.scrollHeight;
-        setTimeout(showNextBootLine, 18 + Math.random() * 12); // Even faster speed
+
+        // Determine dynamic delay based on content
+        let delay = 10 + Math.random() * 6;
+
+        if (line.includes('[FAILED]') || line.includes('[ERROR]')) {
+            delay = 400; // Long pause for errors
+        } else if (
+            line.includes('GNOME') ||
+            line.includes('Lumon') ||
+            line.includes('Graphical Interface') ||
+            line.includes('Display Manager') ||
+            line.includes('Welcome') ||
+            line.includes('Desktop Environment')
+        ) {
+            delay = 100 + Math.random() * 50;
+        }
+
+        setTimeout(showNextBootLine, delay);
     } else {
         setTimeout(() => {
             startGlitchTransition();
-        }, 400);
+        }, 300);
     }
 }
+
 
 // Hide desktop until boot is done
 document.querySelector('.desktop').style.visibility = 'hidden';

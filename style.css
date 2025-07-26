@@ -505,6 +505,17 @@
 #boot-logs .ok { color: #00d800; }
 #boot-logs .error { color: #ff2f2f; }
 
+
+#boot-logs .error {
+    animation: errorFlash 0.5s ease;
+}
+
+@keyframes errorFlash {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
 #boot-screen::after {
     content: "";
     position: absolute;

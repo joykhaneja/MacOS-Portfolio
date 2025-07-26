@@ -1,6 +1,6 @@
 ## 🖥️ MacOS-Inspired Portfolio + Fake Linux Boot Screen
 
-A dynamic, interactive portfolio styled like a MacOS desktop — featuring draggable windows, smooth transitions, and a realistic fake Linux boot sequence that simulates system initialization, complete with `[ OK ]`, `[FAILED ]`, and `[ERROR ]` messages.
+A dynamic, interactive portfolio styled like a MacOS desktop.. featuring draggable windows, smooth transitions, and a realistic fake Linux boot sequence that simulates system initialization, complete with `[ OK ]`, `[FAILED ]`, and `[ERROR ]` messages.
 
 🔗 **Live Portfolio**: [joykhaneja.vercel.app](https://joykhaneja.vercel.app/)
 

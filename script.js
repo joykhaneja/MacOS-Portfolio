@@ -204,6 +204,9 @@ function startGlitchTransition() {
             setTimeout(() => {
                 document.querySelector('.desktop').classList.remove('glitch-desktop');
                 document.body.removeChild(glitchOverlay);
+
+                initializeDesktopIcons();
+                positionDesktopIcons();
             }, 200); // Reduced from 800ms
         }
     }, 30); // Reduced from 30ms to 15ms for faster flicker
@@ -1057,3 +1060,72 @@ function drawSysinfoGraph() {
 setInterval(updateSystemInfo, 2000);
 updateSystemInfo();
     
+function positionDesktopIcons() {
+    const desktopIcons = document.querySelectorAll('.desktop-icon');
+    const iconWidth = 80; // Width of each icon
+    const iconHeight = 110; // Height including spacing
+    const columnSpacing = 20; // Space between columns
+    const rowSpacing = 10; // Space between rows
+    const startX = 0; // Starting X position
+    const startY = 0; // Starting Y position
+    
+    // Calculate available height for icons (excluding menu bar and dock space)
+    const availableHeight = window.innerHeight - 140; // 24px menu + ~100px dock space + padding
+    const iconsPerColumn = Math.floor(availableHeight / iconHeight);
+    
+    desktopIcons.forEach((icon, index) => {
+        const column = Math.floor(index / iconsPerColumn);
+        const row = index % iconsPerColumn;
+        
+        const x = startX + (column * (iconWidth + columnSpacing));
+        const y = startY + (row * iconHeight);
+        
+        // Apply position with smooth transition
+        icon.style.left = x + 'px';
+        icon.style.top = y + 'px';
+        
+        // Add a small delay for staggered animation effect
+        icon.style.transitionDelay = (index * 0.05) + 's';
+    });
+    
+    // Reset transition delay after positioning
+    setTimeout(() => {
+        desktopIcons.forEach(icon => {
+            icon.style.transitionDelay = '0s';
+        });
+    }, desktopIcons.length * 50 + 200);
+}
+
+// Add transition properties for smooth repositioning
+function initializeDesktopIcons() {
+    const desktopIcons = document.querySelectorAll('.desktop-icon');
+    desktopIcons.forEach(icon => {
+        icon.style.transition = 'left 0.3s ease-out, top 0.3s ease-out, background-color 0.2s, transform 0.18s cubic-bezier(.4,1.7,.7,1.1), box-shadow 0.18s cubic-bezier(.4,1.7,.7,1.1)';
+    });
+}
+
+// Call the positioning function on load and resize
+window.addEventListener('DOMContentLoaded', () => {
+    // Wait for boot sequence to complete before positioning icons
+    setTimeout(() => {
+        initializeDesktopIcons();
+        positionDesktopIcons();
+    }, 100);
+});
+
+// Reposition icons when window is resized
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        positionDesktopIcons();
+    }, 100);
+});
+
+// Optional: Add a function to manually trigger repositioning (useful for debugging)
+function repositionIcons() {
+    positionDesktopIcons();
+}
+
+// Make the function globally available for console debugging
+window.repositionIcons = repositionIcons;

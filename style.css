@@ -97,50 +97,59 @@
             opacity: 1;
         }
 
-        .desktop-icons {
-            position: absolute;
-            top: 40px;
-            left: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, 80px);
-            gap: 20px;
-            z-index: 10;
-        }
+.desktop-icons {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 140px); /* Account for menu bar and dock */
+    z-index: 10;
+    /* Remove the grid layout - we'll handle positioning dynamically */
+}
 
-        .desktop-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            user-select: none;
-        }
+.desktop-icon {
+    position: absolute;
+    width: 80px;
+    height: 90px; /* Increased height to accommodate text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to top */
+    cursor: pointer;
+    padding: 8px 4px 4px 4px; /* Adjusted padding */
+    border-radius: 8px;
+    transition: background-color 0.2s, transform 0.18s cubic-bezier(.4,1.7,.7,1.1), box-shadow 0.18s cubic-bezier(.4,1.7,.7,1.1);
+    user-select: none;
+}
 
-        .desktop-icon:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+.desktop-icon:hover {
+    background: rgba(0,122,255,0.10);
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12), 0 1.5px 6px rgba(0,122,255,0.10);
+    z-index: 2;
+}
 
         .desktop-icon.selected {
             background: rgba(0, 122, 255, 0.3);
         }
 
-        .icon-image {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            background: linear-gradient(135deg, #007AFF, #5856D6);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
+.icon-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    margin-bottom: 6px; /* Increased margin for better spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
 
         .icon-image svg {
             width: 24px;
@@ -172,15 +181,24 @@
             background: #232323 !important;
         }
 
-        .icon-label {
-            color: white;
-            font-size: 11px;
-            text-align: center;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            max-width: 70px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+.icon-label {
+    color: white;
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    width: 100%; /* Use full width of container */
+    overflow: visible; /* Allow text to be visible */
+    text-overflow: ellipsis;
+    line-height: 1.2; /* Better line height for readability */
+    word-wrap: break-word; /* Break long words */
+    hyphens: auto; /* Add hyphens for long words */
+    max-height: 32px; /* Limit height to 2-3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 0 2px; /* Small padding for better appearance */
+}
 
         /* Add to your <style> section */
         .wallpaper-thumb {
